@@ -1,547 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Rajdhani:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bryson Wingate · Portfolio</title>
+  <meta name="description" content="Bryson Wingate: full-stack developer and data &amp; systems engineer. A portfolio you can browse like an IDE.">
+  <meta name="author" content="Bryson Wingate">
+  <meta name="theme-color" content="#080d1a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#e9eef6" media="(prefers-color-scheme: light)">
 
-    <link rel="icon" type="image/x-icon" sizes="180x180" href="assets/main/portfolio-icon.ico">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bryson Wingate Portfolio</title>
+  <!-- Link previews (LinkedIn, Slack, iMessage). Preview apps need absolute URLs. -->
+  <link rel="canonical" href="https://bryson-win-portfolio.netlify.app/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bryson-win-portfolio.netlify.app/">
+  <meta property="og:title" content="Bryson Wingate · Portfolio">
+  <meta property="og:description" content="Full-stack developer and data &amp; systems engineer. Open a file, press Run.">
+  <meta property="og:image" content="https://bryson-win-portfolio.netlify.app/assets/main/portfolio-symbol.png">
+  <meta property="og:image:alt" content="Bryson Wingate portfolio logo">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" type="image/x-icon" href="assets/main/portfolio-icon.ico">
 
-    <!-- Main CSS -->
-    <link rel="stylesheet" href="styles/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome (for hamburger icon) -->
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <!-- Apply a saved theme before first paint so there is no flash. -->
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="styles/ide.css">
 </head>
 <body>
+  <div class="ide" id="ide">
 
-    <!-- ================= NAVBAR ================= -->
-    <nav id="dynamic-nav">
-        <div class="header-constraint">
-            <!-- Logo (fixed in CSS) -->
-            <a href="#hero" class="logo-link">
-                <img src="assets/main/portfolio-symbol.png" alt="Logo" class="logo">
-            </a>
+    <!-- ============ TITLE BAR ============ -->
+    <header class="titlebar">
+      <button type="button" class="files-btn" id="files-btn" aria-controls="sidebar" aria-expanded="false" aria-label="Show files">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+      </button>
+      <img src="assets/main/portfolio-symbol.png" alt="" class="titlebar-logo">
+      <nav class="menubar" aria-hidden="true">
+        <span>File</span><span>Edit</span><span>Selection</span><span>View</span>
+        <span>Go</span><span>Run</span><span>Terminal</span><span>Help</span>
+      </nav>
+      <div class="titlebar-search"><span>portfolio</span></div>
+      <button type="button" class="theme-btn" id="theme-btn" aria-label="Switch theme">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <div class="window-controls" aria-hidden="true">
+        <span>&#9472;</span><span>&#9634;</span><span>&#10005;</span>
+      </div>
+    </header>
 
-            <!-- Centered pills -->
-            <div class="nav-links-center">
-                <a href="#projects">Projects</a>
-                <a href="#experience">Experience</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-            </div>
+    <div class="workbench">
 
-            <!-- Hamburger (mobile) -->
-            <div class="hamburger-menu" aria-label="Toggle navigation"
-                 aria-expanded="false" role="button">
-                <i class="fas fa-bars"></i>
-            </div>
+      <!-- ============ ACTIVITY BAR ============ -->
+      <div class="activitybar" aria-hidden="true">
+        <span class="activity is-active" title="Explorer">
+          <svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/></svg>
+        </span>
+        <span class="activity" title="Search">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg>
+        </span>
+        <span class="activity" title="Source control">
+          <svg viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="9" r="2"/><path d="M6 7v10"/><path d="M18 11c0 4-6 3-12 6"/></svg>
+        </span>
+        <span class="activity" title="Run">
+          <svg viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></svg>
+        </span>
+        <span class="activity" title="Extensions">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </span>
+      </div>
+
+      <!-- ============ EXPLORER ============ -->
+      <div class="drawer-backdrop" id="drawer-backdrop" hidden></div>
+      <nav class="sidebar" id="sidebar" aria-label="Explorer">
+        <div class="sidebar-title">Explorer</div>
+        <div class="section-header">&#9662; Portfolio</div>
+        <div class="tree" id="tree"></div>
+        <div class="outline">
+          <div class="section-header">&#9662; Outline</div>
+          <div class="outline-list" id="outline"></div>
         </div>
+        <div class="sidebar-footer">&#8250; Timeline</div>
+      </nav>
+
+      <!-- ============ EDITOR + PANEL ============ -->
+      <main class="main">
+        <div class="tabbar">
+          <div class="tabs" id="tabs" role="tablist" aria-label="Open files"></div>
+          <button type="button" class="run-btn" id="run-btn" title="Run this file">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.5v13l11-6.5z"/></svg>
+            <span>Run</span>
+          </button>
+        </div>
+        <div class="breadcrumbs" id="breadcrumbs" aria-label="Breadcrumb"></div>
+        <div class="editor-area">
+        <div class="editor" id="editor">
+          <div class="code" id="code" hidden></div>
+          <div class="welcome" id="welcome">
+            <img src="assets/main/portfolio-symbol.png" alt="" class="welcome-logo">
+            <h1 class="welcome-name" id="welcome-name"></h1>
+            <p class="welcome-title" id="welcome-title"></p>
+            <ol class="welcome-steps">
+              <li><span class="step-num">1</span><span>Open a file from the explorer<span class="step-mobile"> (&#9776; Files on mobile)</span></span></li>
+              <li><span class="step-num">2</span><span>Press <span class="step-run">&#9654; Run</span> to print it as a card</span></li>
+              <li><span class="step-num">3</span><span>Use the card&rsquo;s links to visit the project</span></li>
+            </ol>
+            <button type="button" class="welcome-cta" id="welcome-open">Open projects/published/astrolabe.ts</button>
+            <blockquote class="welcome-quote">
+              <p id="welcome-quote-text"></p>
+              <cite id="welcome-quote-author"></cite>
+            </blockquote>
+          </div>
+        </div>
+        <div class="minimap" id="minimap" aria-hidden="true">
+          <div class="minimap-lines" id="minimap-lines"></div>
+          <div class="minimap-view" id="minimap-view"></div>
+        </div>
+        </div>
+        <div class="sash" id="sash" role="separator" aria-orientation="horizontal" aria-label="Resize terminal panel" tabindex="0" title="Drag to resize. Double-click to reset."></div>
+        <section class="panel" aria-label="Panel">
+          <div class="panel-tabs" role="tablist" aria-label="Panel">
+            <button type="button" class="panel-tab" data-panel="problems" role="tab">Problems <span class="panel-count">0</span></button>
+            <button type="button" class="panel-tab" data-panel="output" role="tab">Output</button>
+            <button type="button" class="panel-tab is-active" data-panel="terminal" role="tab">Terminal</button>
+            <span class="panel-shell">powershell</span>
+          </div>
+          <div class="panel-view" data-view="problems" hidden>
+            <p class="panel-empty">No problems have been detected in the workspace.</p>
+          </div>
+          <div class="panel-view panel-output" data-view="output" id="output" hidden></div>
+          <div class="panel-view" data-view="terminal">
+            <div class="quickrun">
+              <span class="quickrun-label">Quick run</span>
+              <button type="button" class="chip" data-run="projects/published">published\*</button>
+              <button type="button" class="chip" data-run="projects/wip">wip\*</button>
+              <button type="button" class="chip" data-run="experience">experience\*</button>
+              <button type="button" class="chip" data-run="personal">personal\*</button>
+              <button type="button" class="chip chip-ghost" data-run="cls">cls</button>
+            </div>
+            <div class="terminal" id="terminal" aria-live="polite"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <!-- ============ MOBILE PANE SWITCHER ============ -->
+    <nav class="panebar" aria-label="View">
+      <button type="button" class="pane-btn is-active" data-pane="code" aria-pressed="true">Code</button>
+      <button type="button" class="pane-btn" data-pane="terminal" aria-pressed="false">Terminal<span class="pane-dot" id="pane-dot" hidden></span></button>
     </nav>
 
-    <!-- Dim background overlay for mobile menu -->
-    <div class="menu-overlay"></div>
-
-    <!-- ================= HERO ================= -->
-    <section id="hero" class="page-section hero-section">
-  <div class="hero-card">
-    <h1>Bryson A. Wingate</h1>
-    <h2>Full-Stack Developer · Data & Systems Engineer</h2>
-</section>
-
-    <!-- ================= SECTIONS ================= -->
-    <section id="projects" class="page-section">
-  <div class="container">
-    <div class="section-panel projects-panel">
-
-      <h2 class="projects-title">MISSION LOG</h2>
-      <div class="projects-divider"></div>
-
-      <!-- PROJECT 1 -->
-        <div class="project-row">
-      <!--<div class="project-row clickable" data-href="projects/ecowatch.html" -->
-        <div class="project-info">
-          <h3 class="project-name">EcoWatch</h3>
-          <p class="project-desc">
-            A real-time environmental dashboard visualizing weather conditions,
-            air quality, and atmospheric data through a clean, interactive interface.
-          </p>
-
-          <div class="project-tags">
-            <span>HTML</span>
-            <span>JavaScript</span>
-            <span>OpenWeather API</span>
-          </div>
-
-          <div class="project-actions">
-            <a href="https://ecowatch-dashboard.netlify.app/" target="_blank" class="project-btn">
-              VIEW LIVE
-            </a>
-            <a href="https://github.com/SuperiorPython/EcoWatch" target="_blank" class="project-btn">
-              VIEW CODE
-            </a>
-          </div>
-        </div>
-
-        <div class="project-preview">
-          <img src="assets/projects/ecowatch-image.png" alt="EcoWatch Preview">
-        </div>
+    <!-- ============ STATUS BAR ============ -->
+    <footer class="statusbar">
+      <div class="status-left">
+        <span>&#9095; main</span>
+        <span>&#8855; 0 &#9888; 0</span>
+        <span id="status-counts"></span>
       </div>
-
-      <!-- PROJECT 2 -->
-        <div class="project-row">
-      <!-- <div class="project-row clickable" data-href="projects/playlistdna.html"-->
-        <div class="project-info">
-          <h3 class="project-name">Playlist DNA</h3>
-          <p class="project-desc">
-            An analytics tool that breaks down Spotify playlists into genre,
-            artist, and vibe signatures using interactive visualizations.
-          </p>
-
-          <div class="project-tags">
-            <span>Python</span>
-            <span>Streamlit</span>
-            <span>Spotify API</span>
-            <span>OpenAI API</span>
-          </div>
-
-          <div class="project-actions">
-            <a href="https://playlistdna.streamlit.app/" target="_blank" class="project-btn">
-              VIEW LIVE
-            </a>
-            <a href="https://github.com/SuperiorPython/Playlist-DNA-App" target="_blank" class="project-btn">
-              VIEW CODE
-            </a>
-          </div>
-        </div>
-
-        <div class="project-preview">
-          <img src="assets/projects/playlist-dna-image.png" alt="Playlist DNA Preview">
-        </div>
+      <div class="status-right">
+        <span id="status-pos">Ln 1, Col 1</span>
+        <span id="status-spaces">Spaces: 2</span>
+        <span>UTF-8</span>
+        <span>CRLF</span>
+        <span id="status-lang">Plain Text</span>
       </div>
-
-      <!-- PROJECT 3 -->
-      <div class="project-row">
-        <div class="project-info">
-          <h3 class="project-name">Astrolabe</h3>
-          <p class="project-desc">
-            An interactive space dashboard built on NASA's public APIs — astronomy
-            pictures, exoplanets, space weather, live ISS tracking, and near-Earth
-            asteroid close approaches, launched from a 3D globe in a mission-ops interface.
-          </p>
-
-          <div class="project-tags">
-            <span>React</span>
-            <span>TypeScript</span>
-            <span>Express</span>
-            <span>NASA APIs</span>
-          </div>
-
-          <div class="project-actions">
-            <a href="https://orbital-astrolabe.netlify.app/" target="_blank" class="project-btn">
-              VIEW LIVE
-            </a>
-            <a href="https://github.com/SuperiorPython/Astrolabe" target="_blank" class="project-btn">
-              VIEW CODE
-            </a>
-          </div>
-        </div>
-
-        <div class="project-preview">
-          <img src="assets/projects/astrolabe-image.png" alt="Astrolabe Preview">
-        </div>
-      </div>
-
-      <!-- PROJECT 4 — WIP -->
-      <div class="project-row wip">
-        <div class="project-info">
-          <h3 class="project-name">KernelForge</h3>
-          <p class="project-desc">
-            An AI-powered GPU kernel optimizer built as a four-person senior design
-            project. As LLM Optimization Engine Lead, I build the pipeline that
-            prompts a local LLM to generate and refine optimized CUDA/Triton kernels.
-          </p>
-
-          <div class="project-tags">
-            <span>Python</span>
-            <span>CUDA</span>
-            <span>Triton</span>
-            <span>Ollama</span>
-          </div>
-
-          <div class="project-wip-tag">IN DEVELOPMENT</div>
-        </div>
-
-        <div class="project-preview">
-          <img src="assets/projects/wip-icon.png" alt="Work In Progress Icon Preview">
-        </div>
-      </div>
-
-      <!-- PROJECT 5 — WIP -->
-      <div class="project-row wip">
-        <div class="project-info">
-          <h3 class="project-name">Ionfall</h3>
-          <p class="project-desc">
-            A 2D top-down tower defense game with roguelite scoring — defend a
-            degrading dome with a heat-limited turret, manage an ion economy across
-            a day/night cycle, and survive a final escalating "corporate shutdown."
-          </p>
-
-          <div class="project-tags">
-            <span>Unity</span>
-            <span>C#</span>
-            <span>Game Design</span>
-          </div>
-
-          <div class="project-wip-tag">IN DEVELOPMENT</div>
-        </div>
-
-        <div class="project-preview">
-          <img src="assets/projects/wip-icon.png" alt="Work In Progress Icon Preview">
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<section id="experience" class="page-section">
-  <div class="container">
-    <div class="section-panel experience-panel">
-
-      <h2 class="exp-title">FLIGHT RECORDS</h2>
-      <div class="exp-divider"></div>
-
-      <!-- CodePath — current term -->
-      <div class="experience-item current-experience">
-
-  <div class="exp-logo-box current-logo">
-    <img src="assets/companies/codepath-image.png" alt="CodePath" class="exp-logo">
+    </footer>
   </div>
 
-  <div class="exp-content">
-    <h3 class="exp-role current-role">
-      Tech Fellow (Teaching Assistant) - Intro to Python
-    </h3>
-
-    <p class="current-meta">
-      CodePath @ North Carolina A&T State University | Greensboro, NC | Aug 2026 - Present
-    </p>
-    <ul class="current-bullets">
-      <li>Currently in progress — leading weekly labs and one-on-one debugging support for students learning Python fundamentals and algorithmic thinking.</li>
-    </ul>
-  </div>
-
-</div>
-
-      <!-- Expedia Group -->
-      <div class="experience-item">
-
-  <div class="exp-logo-box">
-    <img src="assets/companies/expedia-image.png" alt="Expedia Group" class="exp-logo">
-  </div>
-
-  <div class="exp-content">
-    <h3 class="exp-role">
-      Cloud Engineering Intern
-    </h3>
-
-    <p class="exp-meta">
-      Expedia Group | San Jose, CA | May 2026 - August 2026
-    </p>
-    <ul class="exp-bullets">
-      <li>Built and deployed a production MCP server on Kubernetes exposing 5 custom observability tools over a 23.7 billion-row OTel ClickHouse dataset, enabling natural language querying of telemetry data.</li>
-      <li>Designed query guardrails blocking DDL/DML operations and multi-statement injection attempts, with automatic LIMIT injection and time-range enforcement to prevent unbounded queries against production data.</li>
-      <li>Built a K6 performance test framework across 6 load scenarios (baseline, spike, soak, multi-tool) with JWT bearer auth, sustaining 133 requests/sec at 230ms p95 latency with zero errors across all scenarios.</li>
-    </ul>
-  </div>
-
-</div>
-
-      <!-- Undergraduate Research Assistant — completed -->
-      <div class="experience-item">
-
-  <div class="exp-logo-box">
-    <img src="assets/companies/ncat-image.png" alt="NCAT State University" class="exp-logo">
-  </div>
-
-  <div class="exp-content">
-    <h3 class="exp-role">
-      Undergraduate Research Assistant
-    </h3>
-
-    <p class="exp-meta">
-      X+ Intelligence Lab @ North Carolina A&T State University | Greensboro, NC | Spring 2026
-    </p>
-    <ul class="exp-bullets">
-      <li>Trained a PyTorch semantic segmentation model to detect and localize weeds in agricultural images, evaluated using pixel accuracy and IoU metrics.</li>
-      <li>Built a custom data pipeline for image preprocessing, mask labeling, and train/validation evaluation.</li>
-      <li>Monitored loss and performance trends to improve model generalization for autonomous farming applications.</li>
-    </ul>
-  </div>
-
-</div>
-
-      <!-- CodePath — first term, completed -->
-      <div class="experience-item">
-
-  <div class="exp-logo-box">
-    <img src="assets/companies/codepath-image.png" alt="CodePath" class="exp-logo">
-  </div>
-
-  <div class="exp-content">
-    <h3 class="exp-role">
-      Tech Fellow (Teaching Assistant) - Intro to Python
-    </h3>
-
-    <p class="exp-meta">
-      CodePath @ North Carolina A&T State University | Greensboro, NC | Aug 2025 - Dec 2025
-    </p>
-    <ul class="exp-bullets">
-      <li>Led weekly labs and debugging sessions supporting students learning Python fundamentals and algorithmic thinking.</li>
-      <li>Created hands-on examples, walkthroughs, and mini-lessons to guide students through loops, functions, dictionaries, and class structures.</li>
-      <li>Provided one-on-one student support and contributed to improving learning outcomes across the course.</li>
-    </ul>
-  </div>
-
-</div>
-
-      <!-- Cisco SWE Intern -->
-      <div class="experience-item">
-  <!-- Logo on the left -->
-  <div class="exp-logo-box">
-    <img src="assets/companies/cisco-image.png" alt="Cisco Systems" class="exp-logo">
-  </div>
-
-  <!-- Text column on the right -->
-  <div class="exp-content">
-    <h3 class="exp-role">
-      Software Engineering Intern
-    </h3>
-    <p class="exp-meta">
-      Cisco Systems | Durham, NC | May 2025 - August 2025
-    </p>
-
-    <ul class="exp-bullets">
-      <li>Developed features for an internal AI-powered Jira assistant by building and refining cloud infrastructure components.</li>
-      <li>Worked extensively with AWS services including EC2, Auto Scaling Groups, Load Balancers, and Route 53 to deploy scalable backend systems.</li>
-      <li>Collaborated with full-stack engineers to enhance service reliability, logging, and monitoring across cloud environments.</li>
-    </ul>
-  </div>
-</div>
-    </div>
-  </div>
-</section>
-
-
-<section id="about" class="page-section">
-  <div class="container">
-    <div class="section-panel about-panel">
-
-      <!-- Title -->
-      <h2 class="about-title">THE PERSON BEHIND THE TERMINAL</h2>
-      <div class="abs-divider"></div>
-
-      <!-- TEXT + IMAGE/RESUME ROW -->
-      <div class="about-flex">
-        <!-- Left text -->
-        <div class="about-text">
-          <p>
-            I am Bryson Wingate, a senior Computer Science student at North Carolina A&amp;T State University
-            with a focus on building efficient, data-driven applications, especially in Python. What began
-            as curiosity about automation and simple scripting has grown into a passion for creating systems
-            that simplify workflows, reveal insights, and make technology feel intuitive.
-          </p>
-          <p>
-            I enjoy taking complex or unstructured problems and turning them into clean, maintainable
-            solutions. Whether I am working with APIs, shaping data pipelines, or improving backend logic,
-            I care about writing readable code, understanding how systems operate behind the scenes, and
-            continually strengthening my technical foundation as I grow as a developer.
-          </p>
-          <p>
-            Outside of coding, you can usually find me at the movie theater watching new sci-fi or action
-            films, or at home building LEGO sets one piece at a time. I am drawn to anything that blends
-            creativity, design, and imagination, and that mindset often influences the way I build and
-            think about software.
-          </p>
-        </div>
-
-        <!-- Right image + resume button -->
-        <div class="about-side">
-          <div class="about-image-wrapper">
-            <img src="assets/main/bryson-image.jpeg"
-                 alt="Bryson Wingate"
-                 class="about-photo">
-          </div>
-
-          <div class="about-resume-wrap side-resume">
-            <a href="assets/main/Bryson_Wingate_Resume.pdf"
-               class="about-resume-btn"
-               target="_blank">
-              VIEW FULL RESUME
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- SKILLS CAROUSEL -->
-      <div class="about-skills">
-        <h3 class="skills-title">SKILLS</h3>
-        <p class="skills-subtitle">
-          A snapshot of the languages, frameworks, and tools I rely on most.
-        </p>
-
-        <div class="skills-carousel">
-          <!-- Left arrow -->
-          <button class="skills-arrow skills-arrow-left" aria-label="Scroll skills left">
-            &#10094;
-          </button>
-
-          <!-- Scrollable track -->
-          <div class="skills-track" id="skillsTrack">
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/python-icon.png" alt="Python" class="skill-icon-img">
-              <span class="skill-label">Python</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/java-icon.png" alt="Java" class="skill-icon-img">
-              <span class="skill-label">Java</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/cplus-icon.png" alt="C++" class="skill-icon-img">
-              <span class="skill-label">C++</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/jscript-icon.png" alt="JavaScript" class="skill-icon-img">
-              <span class="skill-label">JavaScript</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/html-icon.png" alt="HTML &amp; CSS" class="skill-icon-img">
-              <span class="skill-label">HTML &amp; CSS</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/react-icon.png" alt="React" class="skill-icon-img">
-              <span class="skill-label">React</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/nodejs-icon.png" alt="Node.js" class="skill-icon-img">
-              <span class="skill-label">Node.js</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/sql-icon.png" alt="SQL" class="skill-icon-img">
-              <span class="skill-label">SQL</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/api-icon.png" alt="APIs &amp; REST" class="skill-icon-img">
-              <span class="skill-label">APIs &amp; REST</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/aws-icon.png" alt="Amazon Web Services" class="skill-icon-img">
-              <span class="skill-label">Amazon Web Services</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/git-icon.png" alt="Git &amp; GitHub" class="skill-icon-img">
-              <span class="skill-label">Git &amp; GitHub</span>
-            </div>
-
-            <div class="skill-icon-card">
-              <img src="assets/skills/streamlit-icon.png" alt="Streamlit" class="skill-icon-img">
-              <span class="skill-label">Streamlit</span>
-            </div>
-
-              <div class="skill-icon-card">
-              <img src="assets/skills/gcloud-icon.png" alt="Google Cloud" class="skill-icon-img">
-              <span class="skill-label">Google Cloud</span>
-            </div>
-          </div>
-
-          <!-- Right arrow -->
-          <button class="skills-arrow skills-arrow-right" aria-label="Scroll skills right">
-            &#10095;
-          </button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-
-<section id="contact" class="page-section">
-  <div class="container">
-    <div class="section-panel contact-panel">
-
-      <h2 class="contact-title">OPEN CHANNELS</h2>
-      <div class="contact-divider"></div>
-
-        <p class="contact-subtitle">
-  Interested in collaborating, discussing ideas, or learning more about my work?
-  Feel free to connect with me on LinkedIn, explore my projects on GitHub, or reach
-  out directly via email.
-</p>
-
-      <div class="contact-grid">
-
-        <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/bryson-wingate/"
-           class="contact-card"
-           target="_blank">
-          <img src="assets/contact/linkedin-icon.png" alt="LinkedIn" class="contact-icon">
-          <span>LinkedIn</span>
-        </a>
-
-        <!-- GitHub -->
-        <a href="https://github.com/SuperiorPython"
-           class="contact-card"
-           target="_blank">
-          <img src="assets/contact/github-icon.png" alt="GitHub" class="contact-icon">
-          <span>GitHub</span>
-        </a>
-
-        <!-- Email -->
-        <a href="mailto:bawingate@aggies.ncat.edu"
-           class="contact-card">
-          <img src="assets/contact/gmail-icon.png" alt="Email" class="contact-icon">
-          <span>Email</span>
-        </a>
-      </div>
-      <div class="contact-quote">
-  “Talk is cheap. Show me the code.”
-  <span class="contact-quote-author">— Linus Torvalds</span>
-</div>
-    </div>
-
-  </div>
-</section>
-
-<footer class="site-footer">
-  <div class="container footer-inner">
-    <p class="footer-main">
-      Designed &amp; coded by Bryson Wingate
-    </p>
-    <p class="footer-meta">
-      © 2025 · All systems nominal.
-    </p>
-  </div>
-</footer>
-
-
-    <!-- ================= SCRIPTS ================= -->
-    <script src="scripts/main.js"></script>
+  <script src="scripts/content.js"></script>
+  <script src="scripts/highlight.js"></script>
+  <script src="scripts/codegen.js"></script>
+  <script src="scripts/ide.js"></script>
+  <script src="scripts/terminal.js"></script>
+  <script src="scripts/mobile.js"></script>
+  <script src="scripts/theme.js"></script>
+  <script src="scripts/resize.js"></script>
 </body>
 </html>
