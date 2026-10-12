@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Rajdhani:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" sizes="180x180" href="assets/main/portfolio-icon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bryson Wingate Portfolio</title>
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+
+    <!-- Font Awesome (for hamburger icon) -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+    <nav id="dynamic-nav">
+        <div class="header-constraint">
+            <!-- Logo (fixed in CSS) -->
+            <a href="#hero" class="logo-link">
+                <img src="assets/main/portfolio-symbol.png" alt="Logo" class="logo">
+            </a>
+
+            <!-- Centered pills -->
+            <div class="nav-links-center">
+                <a href="#projects">Projects</a>
+                <a href="#experience">Experience</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <!-- Hamburger (mobile) -->
+            <div class="hamburger-menu" aria-label="Toggle navigation"
+                 aria-expanded="false" role="button">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dim background overlay for mobile menu -->
+    <div class="menu-overlay"></div>
+
+    <!-- ================= HERO ================= -->
+    <section id="hero" class="page-section hero-section">
+  <div class="hero-card">
+    <h1>Bryson A. Wingate</h1>
+    <h2>Full-Stack Developer · Data & Systems Engineer</h2>
+</section>
+
+    <!-- ================= SECTIONS ================= -->
+    <section id="projects" class="page-section">
+  <div class="container">
+    <div class="section-panel projects-panel">
+
+      <h2 class="projects-title">MISSION LOG</h2>
+      <div class="projects-divider"></div>
+
+      <!-- PROJECT 1 -->
+        <div class="project-row">
+      <!--<div class="project-row clickable" data-href="projects/ecowatch.html" -->
+        <div class="project-info">
+          <h3 class="project-name">EcoWatch</h3>
+          <p class="project-desc">
+            A real-time environmental dashboard visualizing weather conditions,
+            air quality, and atmospheric data through a clean, interactive interface.
+          </p>
+
+          <div class="project-tags">
+            <span>HTML</span>
+            <span>JavaScript</span>
+            <span>OpenWeather API</span>
+          </div>
+
+          <div class="project-actions">
+            <a href="https://ecowatch-dashboard.netlify.app/" target="_blank" class="project-btn">
+              VIEW LIVE
+            </a>
+            <a href="https://github.com/SuperiorPython/EcoWatch" target="_blank" class="project-btn">
+              VIEW CODE
+            </a>
+          </div>
+        </div>
+
+        <div class="project-preview">
+          <img src="assets/projects/ecowatch-image.png" alt="EcoWatch Preview">
+        </div>
+      </div>
+
+      <!-- PROJECT 2 -->
+        <div class="project-row">
+      <!-- <div class="project-row clickable" data-href="projects/playlistdna.html"-->
+        <div class="project-info">
+          <h3 class="project-name">Playlist DNA</h3>
+          <p class="project-desc">
+            An analytics tool that breaks down Spotify playlists into genre,
+            artist, and vibe signatures using interactive visualizations.
+          </p>
+
+          <div class="project-tags">
+            <span>Python</span>
+            <span>Streamlit</span>
+            <span>Spotify API</span>
+            <span>OpenAI API</span>
+          </div>
+
+          <div class="project-actions">
+            <a href="https://playlistdna.streamlit.app/" target="_blank" class="project-btn">
+              VIEW LIVE
+            </a>
+            <a href="https://github.com/SuperiorPython/Playlist-DNA-App" target="_blank" class="project-btn">
+              VIEW CODE
+            </a>
+          </div>
+        </div>
+
+        <div class="project-preview">
+          <img src="assets/projects/playlist-dna-image.png" alt="Playlist DNA Preview">
+        </div>
+      </div>
+
+      <!-- PROJECT 3 -->
+      <div class="project-row">
+        <div class="project-info">
+          <h3 class="project-name">Astrolabe</h3>
+          <p class="project-desc">
+            An interactive space dashboard built on NASA's public APIs — astronomy
+            pictures, exoplanets, space weather, live ISS tracking, and near-Earth
+            asteroid close approaches, launched from a 3D globe in a mission-ops interface.
+          </p>
+
+          <div class="project-tags">
+            <span>React</span>
+            <span>TypeScript</span>
+            <span>Express</span>
+            <span>NASA APIs</span>
+          </div>
+
+          <div class="project-actions">
+            <a href="https://orbital-astrolabe.netlify.app/" target="_blank" class="project-btn">
+              VIEW LIVE
+            </a>
+            <a href="https://github.com/SuperiorPython/Astrolabe" target="_blank" class="project-btn">
+              VIEW CODE
+            </a>
+          </div>
+        </div>
+
+        <div class="project-preview">
+          <img src="assets/projects/astrolabe-image.png" alt="Astrolabe Preview">
+        </div>
+      </div>
+
+      <!-- PROJECT 4 — WIP -->
+      <div class="project-row wip">
+        <div class="project-info">
+          <h3 class="project-name">KernelForge</h3>
+          <p class="project-desc">
+            An AI-powered GPU kernel optimizer built as a four-person senior design
+            project. As LLM Optimization Engine Lead, I build the pipeline that
+            prompts a local LLM to generate and refine optimized CUDA/Triton kernels.
+          </p>
+
+          <div class="project-tags">
+            <span>Python</span>
+            <span>CUDA</span>
+            <span>Triton</span>
+            <span>Ollama</span>
+          </div>
+
+          <div class="project-wip-tag">IN DEVELOPMENT</div>
+        </div>
+
+        <div class="project-preview">
+          <img src="assets/projects/wip-icon.png" alt="Work In Progress Icon Preview">
+        </div>
+      </div>
+
+      <!-- PROJECT 5 — WIP -->
+      <div class="project-row wip">
+        <div class="project-info">
+          <h3 class="project-name">Ionfall</h3>
+          <p class="project-desc">
+            A 2D top-down tower defense game with roguelite scoring — defend a
+            degrading dome with a heat-limited turret, manage an ion economy across
+            a day/night cycle, and survive a final escalating "corporate shutdown."
+          </p>
+
+          <div class="project-tags">
+            <span>Unity</span>
+            <span>C#</span>
+            <span>Game Design</span>
+          </div>
+
+          <div class="project-wip-tag">IN DEVELOPMENT</div>
+        </div>
+
+        <div class="project-preview">
+          <img src="assets/projects/wip-icon.png" alt="Work In Progress Icon Preview">
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience" class="page-section">
+  <div class="container">
+    <div class="section-panel experience-panel">
+
+      <h2 class="exp-title">FLIGHT RECORDS</h2>
+      <div class="exp-divider"></div>
+
+      <!-- CodePath — current term -->
+      <div class="experience-item current-experience">
+
+  <div class="exp-logo-box current-logo">
+    <img src="assets/companies/codepath-image.png" alt="CodePath" class="exp-logo">
+  </div>
+
+  <div class="exp-content">
+    <h3 class="exp-role current-role">
+      Tech Fellow (Teaching Assistant) - Intro to Python
+    </h3>
+
+    <p class="current-meta">
+      CodePath @ North Carolina A&T State University | Greensboro, NC | Aug 2026 - Present
+    </p>
+    <ul class="current-bullets">
+      <li>Currently in progress — leading weekly labs and one-on-one debugging support for students learning Python fundamentals and algorithmic thinking.</li>
+    </ul>
+  </div>
+
+</div>
+
+      <!-- Expedia Group -->
+      <div class="experience-item">
+
+  <div class="exp-logo-box">
+    <img src="assets/companies/expedia-image.png" alt="Expedia Group" class="exp-logo">
+  </div>
+
+  <div class="exp-content">
+    <h3 class="exp-role">
+      Cloud Engineering Intern
+    </h3>
+
+    <p class="exp-meta">
+      Expedia Group | San Jose, CA | May 2026 - August 2026
+    </p>
+    <ul class="exp-bullets">
+      <li>Built and deployed a production MCP server on Kubernetes exposing 5 custom observability tools over a 23.7 billion-row OTel ClickHouse dataset, enabling natural language querying of telemetry data.</li>
+      <li>Designed query guardrails blocking DDL/DML operations and multi-statement injection attempts, with automatic LIMIT injection and time-range enforcement to prevent unbounded queries against production data.</li>
+      <li>Built a K6 performance test framework across 6 load scenarios (baseline, spike, soak, multi-tool) with JWT bearer auth, sustaining 133 requests/sec at 230ms p95 latency with zero errors across all scenarios.</li>
+    </ul>
+  </div>
+
+</div>
+
+      <!-- Undergraduate Research Assistant — completed -->
+      <div class="experience-item">
+
+  <div class="exp-logo-box">
+    <img src="assets/companies/ncat-image.png" alt="NCAT State University" class="exp-logo">
+  </div>
+
+  <div class="exp-content">
+    <h3 class="exp-role">
+      Undergraduate Research Assistant
+    </h3>
+
+    <p class="exp-meta">
+      X+ Intelligence Lab @ North Carolina A&T State University | Greensboro, NC | Spring 2026
+    </p>
+    <ul class="exp-bullets">
+      <li>Trained a PyTorch semantic segmentation model to detect and localize weeds in agricultural images, evaluated using pixel accuracy and IoU metrics.</li>
+      <li>Built a custom data pipeline for image preprocessing, mask labeling, and train/validation evaluation.</li>
+      <li>Monitored loss and performance trends to improve model generalization for autonomous farming applications.</li>
+    </ul>
+  </div>
+
+</div>
+
+      <!-- CodePath — first term, completed -->
+      <div class="experience-item">
+
+  <div class="exp-logo-box">
+    <img src="assets/companies/codepath-image.png" alt="CodePath" class="exp-logo">
+  </div>
+
+  <div class="exp-content">
+    <h3 class="exp-role">
+      Tech Fellow (Teaching Assistant) - Intro to Python
+    </h3>
+
+    <p class="exp-meta">
+      CodePath @ North Carolina A&T State University | Greensboro, NC | Aug 2025 - Dec 2025
+    </p>
+    <ul class="exp-bullets">
+      <li>Led weekly labs and debugging sessions supporting students learning Python fundamentals and algorithmic thinking.</li>
+      <li>Created hands-on examples, walkthroughs, and mini-lessons to guide students through loops, functions, dictionaries, and class structures.</li>
+      <li>Provided one-on-one student support and contributed to improving learning outcomes across the course.</li>
+    </ul>
+  </div>
+
+</div>
+
+      <!-- Cisco SWE Intern -->
+      <div class="experience-item">
+  <!-- Logo on the left -->
+  <div class="exp-logo-box">
+    <img src="assets/companies/cisco-image.png" alt="Cisco Systems" class="exp-logo">
+  </div>
+
+  <!-- Text column on the right -->
+  <div class="exp-content">
+    <h3 class="exp-role">
+      Software Engineering Intern
+    </h3>
+    <p class="exp-meta">
+      Cisco Systems | Durham, NC | May 2025 - August 2025
+    </p>
+
+    <ul class="exp-bullets">
+      <li>Developed features for an internal AI-powered Jira assistant by building and refining cloud infrastructure components.</li>
+      <li>Worked extensively with AWS services including EC2, Auto Scaling Groups, Load Balancers, and Route 53 to deploy scalable backend systems.</li>
+      <li>Collaborated with full-stack engineers to enhance service reliability, logging, and monitoring across cloud environments.</li>
+    </ul>
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+
+
+<section id="about" class="page-section">
+  <div class="container">
+    <div class="section-panel about-panel">
+
+      <!-- Title -->
+      <h2 class="about-title">THE PERSON BEHIND THE TERMINAL</h2>
+      <div class="abs-divider"></div>
+
+      <!-- TEXT + IMAGE/RESUME ROW -->
+      <div class="about-flex">
+        <!-- Left text -->
+        <div class="about-text">
+          <p>
+            I am Bryson Wingate, a senior Computer Science student at North Carolina A&amp;T State University
+            with a focus on building efficient, data-driven applications, especially in Python. What began
+            as curiosity about automation and simple scripting has grown into a passion for creating systems
+            that simplify workflows, reveal insights, and make technology feel intuitive.
+          </p>
+          <p>
+            I enjoy taking complex or unstructured problems and turning them into clean, maintainable
+            solutions. Whether I am working with APIs, shaping data pipelines, or improving backend logic,
+            I care about writing readable code, understanding how systems operate behind the scenes, and
+            continually strengthening my technical foundation as I grow as a developer.
+          </p>
+          <p>
+            Outside of coding, you can usually find me at the movie theater watching new sci-fi or action
+            films, or at home building LEGO sets one piece at a time. I am drawn to anything that blends
+            creativity, design, and imagination, and that mindset often influences the way I build and
+            think about software.
+          </p>
+        </div>
+
+        <!-- Right image + resume button -->
+        <div class="about-side">
+          <div class="about-image-wrapper">
+            <img src="assets/main/bryson-image.jpeg"
+                 alt="Bryson Wingate"
+                 class="about-photo">
+          </div>
+
+          <div class="about-resume-wrap side-resume">
+            <a href="assets/main/Bryson_Wingate_Resume.pdf"
+               class="about-resume-btn"
+               target="_blank">
+              VIEW FULL RESUME
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SKILLS CAROUSEL -->
+      <div class="about-skills">
+        <h3 class="skills-title">SKILLS</h3>
+        <p class="skills-subtitle">
+          A snapshot of the languages, frameworks, and tools I rely on most.
+        </p>
+
+        <div class="skills-carousel">
+          <!-- Left arrow -->
+          <button class="skills-arrow skills-arrow-left" aria-label="Scroll skills left">
+            &#10094;
+          </button>
+
+          <!-- Scrollable track -->
+          <div class="skills-track" id="skillsTrack">
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/python-icon.png" alt="Python" class="skill-icon-img">
+              <span class="skill-label">Python</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/java-icon.png" alt="Java" class="skill-icon-img">
+              <span class="skill-label">Java</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/cplus-icon.png" alt="C++" class="skill-icon-img">
+              <span class="skill-label">C++</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/jscript-icon.png" alt="JavaScript" class="skill-icon-img">
+              <span class="skill-label">JavaScript</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/html-icon.png" alt="HTML &amp; CSS" class="skill-icon-img">
+              <span class="skill-label">HTML &amp; CSS</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/react-icon.png" alt="React" class="skill-icon-img">
+              <span class="skill-label">React</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/nodejs-icon.png" alt="Node.js" class="skill-icon-img">
+              <span class="skill-label">Node.js</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/sql-icon.png" alt="SQL" class="skill-icon-img">
+              <span class="skill-label">SQL</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/api-icon.png" alt="APIs &amp; REST" class="skill-icon-img">
+              <span class="skill-label">APIs &amp; REST</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/aws-icon.png" alt="Amazon Web Services" class="skill-icon-img">
+              <span class="skill-label">Amazon Web Services</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/git-icon.png" alt="Git &amp; GitHub" class="skill-icon-img">
+              <span class="skill-label">Git &amp; GitHub</span>
+            </div>
+
+            <div class="skill-icon-card">
+              <img src="assets/skills/streamlit-icon.png" alt="Streamlit" class="skill-icon-img">
+              <span class="skill-label">Streamlit</span>
+            </div>
+
+              <div class="skill-icon-card">
+              <img src="assets/skills/gcloud-icon.png" alt="Google Cloud" class="skill-icon-img">
+              <span class="skill-label">Google Cloud</span>
+            </div>
+          </div>
+
+          <!-- Right arrow -->
+          <button class="skills-arrow skills-arrow-right" aria-label="Scroll skills right">
+            &#10095;
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="contact" class="page-section">
+  <div class="container">
+    <div class="section-panel contact-panel">
+
+      <h2 class="contact-title">OPEN CHANNELS</h2>
+      <div class="contact-divider"></div>
+
+        <p class="contact-subtitle">
+  Interested in collaborating, discussing ideas, or learning more about my work?
+  Feel free to connect with me on LinkedIn, explore my projects on GitHub, or reach
+  out directly via email.
+</p>
+
+      <div class="contact-grid">
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/bryson-wingate/"
+           class="contact-card"
+           target="_blank">
+          <img src="assets/contact/linkedin-icon.png" alt="LinkedIn" class="contact-icon">
+          <span>LinkedIn</span>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/SuperiorPython"
+           class="contact-card"
+           target="_blank">
+          <img src="assets/contact/github-icon.png" alt="GitHub" class="contact-icon">
+          <span>GitHub</span>
+        </a>
+
+        <!-- Email -->
+        <a href="mailto:bawingate@aggies.ncat.edu"
+           class="contact-card">
+          <img src="assets/contact/gmail-icon.png" alt="Email" class="contact-icon">
+          <span>Email</span>
+        </a>
+      </div>
+      <div class="contact-quote">
+  “Talk is cheap. Show me the code.”
+  <span class="contact-quote-author">— Linus Torvalds</span>
+</div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p class="footer-main">
+      Designed &amp; coded by Bryson Wingate
+    </p>
+    <p class="footer-meta">
+      © 2025 · All systems nominal.
+    </p>
+  </div>
+</footer>
+
+
+    <!-- ================= SCRIPTS ================= -->
+    <script src="scripts/main.js"></script>
+</body>
+</html>

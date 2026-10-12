@@ -1,0 +1,943 @@
+/* ----------------------------------
+ * 1. Global Base & Fixed Background
+ * ---------------------------------- */
+* {
+    box-sizing: border-box;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #f2f2f2;
+    min-height: 30vh;
+    background: #000 url('../assets/main/nasa-image.jpg') center / cover fixed;
+    padding-top: 80px; /* Space for fixed header */
+}
+
+/* Content area */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ----------------------------------
+ * 2. Content Sections
+ * ---------------------------------- */
+.page-section {
+    min-height: 100vh;
+}
+
+.hero-card {
+    padding: 48px 56px;
+    border-radius: 26px;
+    background: radial-gradient(circle at top, rgba(56, 189, 248, 0.18), rgba(5, 10, 25, 0.92));
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(14, 165, 233, 0.35);
+    backdrop-filter: blur(14px);
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-section h1, .hero-section h2 {
+    letter-spacing: 0.12em;
+}
+
+.hero-section h1 {
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.hero-section h2 {
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+}
+
+/* ----------------------------------
+ * 3. FIXED HEADER BAR
+ * ---------------------------------- */
+#dynamic-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    backdrop-filter: blur(14px);
+    height: 90px;
+    padding: 0;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.9);
+}
+
+/* ----------------------------------
+ * 3A. LOGO: PINNED TO VIEWPORT CORNER
+ * ---------------------------------- */
+.logo-link {
+    position: fixed; /* pinned to screen */
+    left: 20px;
+    top: 45px; /* half of 90px header height */
+    transform: translateY(-50%);
+    z-index: 1001;
+}
+
+.logo {
+    height: 50px;
+    width: auto;
+    display: block;
+}
+
+/* ----------------------------------
+ * 3B. HEADER CONTENT CONTAINER
+ * ---------------------------------- */
+.header-constraint {
+    max-width: 1200px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 30px 0 80px; /* left padding for centered nav */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* hamburger on the right */
+}
+
+/* ----------------------------------
+ * 4. NAV LINKS (CENTERED, PILL STYLE)
+ * ---------------------------------- */
+.nav-links-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-links-center a {
+    font-family: 'Rajdhani', sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #e6e6e6;
+    padding: 12px 26px;
+    border-radius: 999px;
+    background: rgba(15, 15, 15, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.nav-links-center a:hover {
+    color: #ffffff;
+    background-color: rgba(0, 107, 246, 0.28);
+    border-color: #006bf6;
+    box-shadow: 0 0 22px rgba(0, 107, 246, 0.55);
+    transform: translateY(-2px);
+}
+
+.nav-links-center a.active {
+    color: #ffffff;
+    background-color: rgba(0, 107, 246, 0.45);
+    border-color: #006bf6;
+    box-shadow: 0 0 28px rgba(0, 107, 246, 0.65);
+}
+
+/* ----------------------------------
+ * 5. HAMBURGER (RIGHT SIDE)
+ * ---------------------------------- */
+.hamburger-menu {
+    font-size: 1.7rem;
+    cursor: pointer;
+    color: #fff;
+    flex-shrink: 0;
+    display: none; /* desktop hidden */
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1002; /* above header bar & logo */
+}
+
+/* ----------------------------------
+ * 6. DIM BACKGROUND OVERLAY FOR MOBILE MENU
+ * ---------------------------------- */
+.menu-overlay {
+    position: fixed;
+    top: 90px; /* start under the header */
+    left: 0;
+    width: 100%;
+    height: calc(100% - 90px);
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+    z-index: 500; /* BELOW header & pills */
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ----------------------------------
+ * 7. RESPONSIVE MENU (MOBILE)
+ * ---------------------------------- */
+@media (max-width: 900px) {
+    .nav-links-center {
+        left: 0;
+        transform: translateY(-10px);
+        display: none;
+        opacity: 0;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+    .hamburger-menu {
+        display: block;
+    }
+    .nav-links-center.active {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        position: fixed;
+        left: 0;
+        top: 500px;
+        width: 100%;
+        height: calc(100% - 90px);
+        justify-content: center;
+        align-items: center;
+        opacity: 1;
+        transform: translateY(0);
+        background-color: transparent;
+    }
+    .nav-links-center.active a {
+        padding: 20px 32px;
+        font-size: 1.5rem;
+        background: rgba(15, 23, 42, 0.98);
+        color: #f9fafb;
+        box-shadow: 0 0 30px rgba(37, 99, 235, 0.75);
+    }
+}
+
+/* ----------------------------------
+ * 8. SECTION PANELS (TRANSPARENT BOXES)
+ * ---------------------------------- */
+.section-panel {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 40px 50px;
+    background: rgba(5, 10, 25, 0.78);
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(37, 99, 235, 0.25);
+    backdrop-filter: blur(14px);
+}
+
+.section-panel h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
+    margin: 0 0 16px;
+}
+
+/* Text styles for paragraphs and lists */
+.section-panel p, .section-panel ul, .section-panel li {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e5e7eb;
+}
+
+/* ABOUT SECTION FLEX LAYOUT */
+.about-flex {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+/* ABOUT IMAGE */
+.about-image-wrapper {
+    flex-shrink: 0;
+}
+
+.about-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.18em;
+    margin: 0 0 10px;
+}
+
+.abs-divider {
+    width: 200px;
+    height: 2px;
+    margin: 0 auto 30px;
+    background: #0ea5e9;
+}
+
+.about-photo {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 25px rgba(0, 107, 246, 0.45);
+}
+
+/* ABOUT TEXT */
+.about-text {
+    flex: 1;
+}
+
+.about-text h2 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+}
+
+.about-resume-wrap {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.about-resume-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    background: #0ea5e9;
+    color: #020617;
+    text-decoration: none;
+    border-radius: 999px;
+    box-shadow: 0 0 22px rgba(14,165,233,0.7);
+    transition: 0.2s ease;
+}
+
+.about-resume-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(56,189,248,0.7);
+    background: #38bdf8;
+}
+
+.about-side {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+}
+
+.side-resume {
+    margin-top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* ===== ABOUT → SKILLS CAROUSEL ===== */
+.about-skills {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.skills-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.9rem;
+    letter-spacing: 0.14em;
+    margin-bottom: 8px;
+}
+
+.skills-subtitle {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+}
+
+/* Carousel shell */
+.skills-carousel {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Scrollable strip */
+.skills-track {
+    flex: 1;
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 6px 4px 10px;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+/* Hide ugly scrollbar (but keep scroll functionality) */
+.skills-track::-webkit-scrollbar {
+    height: 4px;
+}
+.skills-track::-webkit-scrollbar-track {
+    background: transparent;
+}
+.skills-track::-webkit-scrollbar-thumb {
+    background: rgba(51, 65, 85, 0.8);
+    border-radius: 999px;
+}
+
+/* Each skill “slide” */
+.skill-icon-card {
+    scroll-snap-align: center;
+    flex: 0 0 160px;
+    background: rgba(11, 18, 40, 0.85);
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    border-radius: 18px;
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 18px rgba(14,165,233,0.28);
+    transition: 0.22s ease;
+}
+
+.skill-icon-img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    margin-bottom: 8px;
+}
+
+.skill-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: #e5e7eb;
+    text-align: center;
+}
+
+/* Hover */
+.skill-icon-card:hover {
+    transform: translateY(-4px);
+    border-color: #0ea5e9;
+    box-shadow: 0 0 26px rgba(14,165,233,0.55);
+    background: rgba(15, 23, 42, 0.95);
+}
+
+/* Arrow buttons */
+.skills-arrow {
+    border: none;
+    background: rgba(15, 23, 42, 0.9);
+    color: #e5e7eb;
+    width: 34px;
+    height: 80px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px rgba(15,23,42,0.9);
+    cursor: pointer;
+    transition: 0.18s ease;
+}
+
+.skills-arrow:hover {
+    background: rgba(14, 165, 233, 0.32);
+    box-shadow: 0 0 24px rgba(14,165,233,0.7);
+}
+
+/* ----------------------------------
+ * EXPERIENCE SECTION
+ * ---------------------------------- */
+.experience-panel {
+    max-width: 1100px;
+    margin: 30px auto;
+}
+
+/* Title and divider */
+.exp-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 0.18em;
+    margin: 0 0 10px;
+}
+
+.exp-divider {
+    width: 200px;
+    height: 2px;
+    margin: 0 auto 30px;
+    background: #0ea5e9;
+}
+
+/* Each experience block */
+.experience-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.exp-logo-box {
+    width: 250px;
+    height: 250px;
+    border-radius: 18px;
+    background: radial-gradient(circle at 30% 0%, rgba(56,189,248,0.3), rgba(15,23,42,1));
+    border: 1px solid rgba(148,163,184,0.6);
+    box-shadow: 0 0 18px rgba(14,165,233,0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.exp-logo {
+    width: 90%;
+    height: 90%;
+    object-fit: contain;
+}
+
+/* Right side text column */
+.exp-content {
+    flex: 1;
+}
+
+.exp-role, .exp-meta {
+    font-family: 'Space Mono', monospace;
+}
+
+/* Role + meta */
+.exp-role {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #38bdf8;
+    margin-bottom: 8px;
+}
+
+.exp-meta {
+    font-size: 1.05rem;
+    color: #e7e7eb;
+    opacity: 0.9;
+}
+
+/* Bullets */
+.exp-bullets {
+    list-style: none;
+    padding-left: 0;
+    margin: 12px 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #e5e7eb;
+}
+
+.exp-bullets li {
+    position: relative;
+    padding-left: 20px; /* space for bullet */
+    margin-bottom: 8px;
+}
+
+.exp-bullets li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #22d3ee;
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+/* ===== EXPERIENCE → MOBILE CARD LAYOUT ===== */
+@media (max-width: 900px) {
+    .experience-panel {
+        padding: 24px 18px;
+    }
+    .experience-item {
+        flex-direction: column;
+        align-items: stretch;
+        margin-bottom: 28px;
+        padding: 0;
+        background: rgba(11, 18, 40, 0.96);
+        border-radius: 24px;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        box-shadow: 0 18px 35px rgba(0, 0, 0, 0.7);
+    }
+    .exp-logo-box {
+        width: 100%;
+        height: 160px;
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
+    .exp-content {
+        padding: 18px 18px 20px;
+        text-align: left;
+    }
+}
+
+/* ----------------------------------
+ * CONTACT SECTION
+ * ---------------------------------- */
+.contact-title {
+    text-align: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    margin-bottom: 0;
+}
+
+.contact-divider {
+    width: 200px;
+    height: 2px;
+    margin: 0 auto 30px;
+    background: #0ea5e9;
+}
+
+.contact-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+/* Icon cards */
+.contact-card {
+    width: 130px;
+    height: 130px;
+    border-radius: 18px;
+    background: rgba(11, 18, 40, 0.8);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 0 20px rgba(14,165,233,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #e5e7eb;
+    font-family: 'Space Mono', monospace;
+    transition: 0.25s ease;
+}
+
+.contact-icon {
+    width: 75px;
+    height: 75px;
+    margin-bottom: 10px;
+    object-fit: contain;
+}
+
+/* Hover glow */
+.contact-card:hover {
+    border-color: #0ea5e9;
+    box-shadow: 0 0 28px rgba(14,165,233,0.55);
+    transform: translateY(-4px);
+    background: rgba(15, 23, 42, 0.92);
+}
+
+.contact-subtitle {
+    max-width: 640px;
+    margin: 0 auto 36px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #cbd5f5;
+}
+
+.contact-subtitle strong {
+    display: block;
+    margin-bottom: 6px;
+    color: #e5e7eb;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.contact-quote {
+    margin-top: 48px;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: rgba(229, 231, 235, 0.85);
+    opacity: 0.9;
+}
+
+.contact-quote-author {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(56, 189, 248, 0.8);
+}
+
+/* ----------------------------------
+ * FOOTER
+ * ---------------------------------- */
+.site-footer {
+    border-top: 1px solid rgba(148, 163, 184, 0.35);
+    background: radial-gradient(circle at 50% 0%, rgba(56,189,248,0.12), transparent 55%), rgba(3, 7, 18, 0.96);
+    padding: 22px 0 28px;
+}
+
+.footer-inner {
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    color: #9ca3af;
+    font-size: 0.85rem;
+}
+
+.footer-main {
+    margin: 0 0 6px;
+    color: #e5e7eb;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.footer-meta {
+    margin: 0;
+    opacity: 0.8;
+}
+
+/* ----------------------------------
+ * PROJECTS (VERTICAL PANELS)
+ * ---------------------------------- */
+.projects-title {
+    font-family: 'Rajdhani', sans-serif;
+    text-align: center;
+    font-size: 2.2rem;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+}
+
+.projects-divider {
+    width: 200px;
+    height: 2px;
+    background: #0ea5e9;
+    margin: 0 auto 40px;
+}
+
+/* Each vertical project panel */
+.project-row {
+    display: flex;
+    gap: 36px;
+    margin-bottom: 40px;
+    padding: 36px;
+    border-radius: 26px;
+    background: rgba(11, 18, 40, 0.92);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: 0 0 30px rgba(14,165,233,0.25);
+    transition: 0.25s ease;
+}
+
+.project-row.clickable:hover {
+    transform: translateY(-6px);
+    border-color: #0ea5e9;
+    box-shadow: 0 0 40px rgba(14,165,233,0.55);
+}
+
+/* Left text */
+.project-info {
+    flex: 1;
+}
+
+.project-name {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+    color: #e5e7eb;
+}
+
+.project-desc {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cbd5f5;
+    margin-bottom: 22px;
+}
+
+/* Tags */
+.project-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.project-tags span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    color: #e5e7eb;
+}
+
+/* Action buttons */
+.project-actions {
+    display: flex;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.project-btn {
+    flex: 1;
+    text-align: center;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 12px 0;
+    border-radius: 999px;
+    text-decoration: none;
+    color: #020617;
+    background: linear-gradient(135deg, #22d3ee, #3b82f6);
+    box-shadow: 0 0 18px rgba(34, 211, 238, 0.55), inset 0 0 0 1px rgba(255,255,255,0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 0 28px rgba(34, 211, 238, 0.85), 0 0 12px rgba(59, 130, 246, 0.6);
+}
+
+/* Right preview image */
+.project-preview {
+    width: 300px;
+    height: 300px;
+    border-radius: 18px;
+    overflow: hidden;
+    background: rgba(2, 6, 23, 0.95);
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center; /* vertical centering */
+    justify-content: center; /* horizontal centering */
+}
+
+.project-preview img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+}
+
+/* WIP styling */
+.project-row.wip {
+    opacity: 0.6;
+}
+
+.project-wip-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: rgba(56,189,248,0.18);
+    border: 1px solid rgba(56,189,248,0.6);
+    color: #93c5fd;
+}
+
+.project-preview-placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+    .project-row {
+        flex-direction: column;
+        padding: 26px;
+        gap: 22px;
+    }
+    .project-preview {
+        width: 100%;
+        height: 100%;
+    }
+    .project-preview img {
+        width: 75%;
+        height: 75%;
+    }
+    .project-row {
+        text-decoration: none;
+        color: inherit;
+    }
+}
+
+/* Incoming and current experience wrappers */
+.incoming-experience, .current-experience {
+    border-radius: 22px;
+    background: rgba(6, 15, 35, 0.75);
+    box-shadow: 0 0 35px rgba(14, 165, 233, 0.25);
+}
+
+.incoming-experience {
+    border: 3px dashed rgba(56, 189, 248, 1);
+}
+
+.current-experience {
+    border: 3px solid rgba(56, 189, 248, 1);
+}
+
+.incoming-logo, .current-logo {
+    background: radial-gradient(circle at top, rgba(56,189,248,0.35), rgba(15,23,42,1));
+}
+
+.incoming-note, .current-role {
+    font-family: 'Space Mono', monospace;
+    color: #cbd5f5;
+}
+
+.incoming-role, .current-role {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #38bdf8;
+    margin-bottom: 8px;
+}
+
+/* Experience bullets */
+.current-bullets {
+    list-style: none;
+    padding-left: 0;
+    margin: 12px 0 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: #e5e7eb;
+}
+
+.current-bullets li {
+    position: relative;
+    padding-left: 20px; /* space for bullet */
+    margin-bottom: 8px;
+}
+
+.current-bullets li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #22d3ee;
+    font-size: 1.1rem;
+    line-height: 1;
+}

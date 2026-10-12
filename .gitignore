@@ -1,0 +1,15 @@
+# Python virtual environment
+.venv/
+__pycache__/
+
+# IDE settings
+.idea/
+.vscode/
+
+# OS clutter
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Node (if tooling is added later)
+node_modules/
