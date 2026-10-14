@@ -41,7 +41,9 @@
   const byPath = (path) => FILES.find((f) => f.path === path) || null;
 
   // collapsed: folder paths the visitor has closed in the explorer.
-  const state = { tabs: [], active: null, line: 1, collapsed: new Set() };
+  // recent: open tabs, least recently viewed first (used to pick which tab to close).
+  const MAX_TABS = 6;
+  const state = { tabs: [], active: null, line: 1, collapsed: new Set(), recent: [] };
 
   /* ------------------------------------------------------------------
    * Helpers
@@ -336,9 +338,23 @@
     renderHooks.forEach((fn) => fn());
   }
 
+  function touch(path) {
+    state.recent = state.recent.filter((p) => p !== path);
+    state.recent.push(path);
+  }
+
   function openFile(path) {
     if (!byPath(path)) return;
-    if (!state.tabs.includes(path)) state.tabs.push(path);
+    if (!state.tabs.includes(path)) {
+      // At the limit, close the tab that was viewed longest ago (never the one being opened).
+      if (state.tabs.length >= MAX_TABS) {
+        const oldest = state.recent.find((p) => p !== path && state.tabs.includes(p)) || state.tabs[0];
+        state.tabs = state.tabs.filter((p) => p !== oldest);
+        state.recent = state.recent.filter((p) => p !== oldest);
+      }
+      state.tabs.push(path);
+    }
+    touch(path);
     if (state.active !== path) state.line = 1;
     state.active = path;
     if (revealInTree(byPath(path))) renderTree();
@@ -350,6 +366,7 @@
     const i = state.tabs.indexOf(path);
     if (i < 0) return;
     state.tabs.splice(i, 1);
+    state.recent = state.recent.filter((p) => p !== path);
     if (state.active === path) {
       state.active = state.tabs[Math.min(i, state.tabs.length - 1)] || null;
       state.line = 1;
